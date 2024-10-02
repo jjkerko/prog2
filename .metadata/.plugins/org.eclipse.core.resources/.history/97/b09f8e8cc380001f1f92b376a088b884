@@ -1,0 +1,134 @@
+package classe;
+
+import java.util.ArrayList;
+import java.util.List;
+
+// Classe représentant un appartement
+class Appartement {
+    private String id;
+    private String title;
+    private String description;
+    private double rent;
+    private String status; // Peut être "libre", "occupé", ou "en cours de libération"
+    
+    public Appartement(String id, String title, String description, double rent, String status) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.rent = rent;
+        this.status = status;
+    }
+    
+    public String getId() {
+        return id;
+    }
+    
+    public String getTitle() {
+        return title;
+    }
+    
+    public String getStatus() {
+        return status;
+    }
+
+    // Autres getters et setters selon les besoins
+}
+
+// Classe abstraite pour un endroit (soit un immeuble, soit un quartier)
+abstract class Location {
+    private String id;
+    private String name;
+    
+    public Location(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    // Méthode abstraite pour compter le nombre d'appartements dans l'endroit
+    public abstract int countAppartements();
+}
+
+// Classe représentant un immeuble (hérite de Location)
+class Immeuble extends Location {
+    private int etages;
+    private List<Appartement> appartements;
+    
+    public Immeuble(String id, String name, int etages) {
+        super(id, name);
+        this.etages = etages;
+        this.appartements = new ArrayList<>();
+    }
+    
+    public void ajouterAppartement(Appartement appartement) {
+        appartements.add(appartement);
+    }
+    
+    @Override
+    public int countAppartements() {
+        return appartements.size();
+    }
+
+    public List<Appartement> getAppartements() {
+        return appartements;
+    }
+}
+
+// Classe représentant un quartier (hérite de Location)
+class Quartier extends Location {
+    private List<Immeuble> immeubles;
+    
+    public Quartier(String id, String name) {
+        super(id, name);
+        this.immeubles = new ArrayList<>();
+    }
+    
+    public void ajouterImmeuble(Immeuble immeuble) {
+        immeubles.add(immeuble);
+    }
+    
+    public boolean contientAppartement(Appartement appartement) {
+        for (Immeuble immeuble : immeubles) {
+            if (immeuble.getAppartements().contains(appartement)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int countAppartements() {
+        int total = 0;
+        for (Immeuble immeuble : immeubles) {
+            total += immeuble.countAppartements();
+        }
+        return total;
+    }
+}
+
+// Classe principale pour tester l'application
+public class Main {
+    public static void main(String[] args) {
+        // Création des appartements
+        Appartement apt1 = new Appartement("A1", "Bel Appartement", "Un appartement spacieux.", 500.0, "libre");
+        Appartement apt2 = new Appartement("A2", "Appartement Moderne", "Un appartement moderne.", 700.0, "occupé");
+        
+        // Création d'un immeuble et ajout des appartements
+        Immeuble immeubleJade = new Immeuble("B1", "Jade", 5);
+        immeubleJade.ajouterAppartement(apt1);
+        
+        // Création d'un quartier et ajout de l'immeuble
+        Quartier ivandry = new Quartier("N1", "Ivandry");
+        ivandry.ajouterImmeuble(immeubleJade);
+        
+        // Vérification si un appartement se trouve dans le quartier
+        System.out.println("L'appartement apt1 est-il dans Ivandry ? " + ivandry.contientAppartement(apt1)); // true
+        System.out.println("L'appartement apt2 est-il dans Ivandry ? " + ivandry.contientAppartement(apt2)); // false
+        
+        // Comptage des appartements dans le quartier
+        System.out.println("Nombre total d'appartements dans Ivandry : " + ivandry.countAppartements()); // 1
+    }
+}

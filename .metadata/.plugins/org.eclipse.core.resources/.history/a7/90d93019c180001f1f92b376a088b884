@@ -1,0 +1,29 @@
+class Appartement {
+    private String id;
+    private String title;
+    private String description;
+    private double rent;
+    private String status; // Can be "free", "occupied", or "being vacated"
+    
+    public Appartement(String id, String title, String description, double rent, String status) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.rent = rent;
+        this.status = status;
+    }
+    
+    public String getId() {
+        return id;
+    }
+    
+    public String getTitle() {
+        return title;
+    }
+    
+    public String getStatus() {
+        return status;
+    }
+
+    // Other getters and setters as needed
+}

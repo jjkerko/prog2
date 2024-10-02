@@ -1,0 +1,8 @@
+package classe;
+
+public class Appartement {	
+	
+	public static void main(String...args){
+		System.out.println("bonjour");
+	}
+}

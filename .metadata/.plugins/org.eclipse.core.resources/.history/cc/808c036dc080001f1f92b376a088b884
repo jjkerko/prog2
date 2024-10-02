@@ -1,0 +1,10 @@
+package classe;
+
+public class Appartement {
+    private String id;
+    private String title;
+    private String description;
+    private double rent;
+    private String status; 
+
+}
