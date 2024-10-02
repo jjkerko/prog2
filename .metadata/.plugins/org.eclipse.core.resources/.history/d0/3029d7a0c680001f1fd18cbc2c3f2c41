@@ -30,4 +30,5 @@ public class Appartement {
         return status;
     }
 
+    // Autres getters et setters selon les besoins
 }

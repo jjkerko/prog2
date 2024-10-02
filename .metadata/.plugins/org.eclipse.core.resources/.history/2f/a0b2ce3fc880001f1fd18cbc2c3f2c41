@@ -1,0 +1,29 @@
+package classe;
+
+public class main {
+    public static void main(String[] args) {
+        // Création des appartements
+        Appartement apt1 = new Appartement("A1", "Bel Appartement", "Un appartement spacieux.", 500.0, "libre");
+        Appartement apt2 = new Appartement("A2", "Appartement Moderne", "Un appartement moderne.", 700.0, "occupé");
+        
+        // Création d'un immeuble et ajout des appartements
+        immeuble immeubleJade = new immeuble("B1", "Jade", 5);
+        immeubleJade.ajouterAppartement(apt1);
+        immeuble immeuble_Analam = new immeuble("B2","Pri", 1);
+        immeuble_Analam.ajouterAppartement(apt2);
+        
+        // Création d'un quartier et ajout de l'immeuble
+        quartier ivandry = new quartier("N1", "Ivandry");
+        ivandry.ajouterImmeuble(immeubleJade);
+        quartier ivandry = new quartier("N1", "Ivandry");
+        ivandry.ajouterImmeuble(immeubleJade);
+
+        
+        // Vérification si un appartement se trouve dans le quartier
+        System.out.println("L'appartement apt1 est-il dans Ivandry ? " + ivandry.contientAppartement(apt1)); // true
+        System.out.println("L'appartement apt2 est-il dans Ivandry ? " + ivandry.contientAppartement(apt2)); // false
+        
+        // Comptage des appartements dans le quartier
+        System.out.println("Nombre total d'appartements dans Ivandry : " + ivandry.countAppartements()); // 1
+    }
+}
